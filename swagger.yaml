@@ -14,11 +14,7 @@ paths:
       tags:
         - User Module
       summary: Login
-      description: API for user login
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      description: API for Login
       parameters:
         - in: body
           name: body
@@ -26,6 +22,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/Login'
+      produces:
+        - application/json
       responses:
         '200':
           description: Login Successfully
@@ -40,11 +38,7 @@ paths:
       tags:
         - User Module
       summary: Signup
-      description: API for user signup
-      consumes:
-        - application/json
-      produces:
-        - application/json
+      description: API for Signup
       parameters:
         - in: body
           name: body
@@ -52,6 +46,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/User'
+      produces:
+        - application/json
       responses:
         '200':
           description: Signup Successfully
@@ -62,20 +58,18 @@ paths:
         '500':
           description: Internal Server Error
   /user/profile:
-    get:
+    post:
       security:
         - Bearer: []
       tags:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      produces:
-        - application/json
       responses:
         '200':
           description: User profile retrieved successfully
           schema:
-            $ref: '#/definitions/UserProfile'
+            $ref: '#/definitions/ApiResponse'
         '400':
           description: Invalid Fields
         '500':
@@ -87,10 +81,6 @@ paths:
         - User Module
       summary: User Profile API
       description: API for updating a user profile
-      consumes:
-        - application/json
-      produces:
-        - application/json
       parameters:
         - in: body
           name: body
@@ -98,6 +88,8 @@ paths:
           required: true
           schema:
             $ref: '#/definitions/UserProfile'
+      produces:
+        - application/json
       responses:
         '200':
           description: User profile updated successfully
@@ -107,8 +99,6 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-  
-
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -116,55 +106,51 @@ securityDefinitions:
     in: header
 definitions:
   User:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+      firstName:
+        type: string
+        description: user first name
+      lastName:
+        type: string
+        description: user last name
+      userName:
+        type: string
+        description: user public name
+  Login:
+    properties:
+      email:
+        type: string
+        description: user email
+      password:
+        type: string
+        description: user password
+  ApiResponse:
     type: object
     properties:
-  email:
-    type: string
-    description: User email
-  password:
-    type: string
-    description: User password
-  firstName:
-    type: string
-    description: User first name
-  lastName:
-    type: string
-    description: User last name
-  userName:
-    type: string
-    description: User public name
-Login:
-  type: object
-  properties:
-    email:
-      type: string
-      description: User email
-    password:
-      type: string
-      description: User password
-ApiResponse:
-  type: object
-  properties:
-    status:
-      type: integer
-    message:
-      type: string
-    body:
-      type: object
-      properties:
-        id:
-          type: string
-        email:
-          type: string
-LoginResponse:
-  type: object
-  properties:
-    token:
-      type: string
-UserProfile:
-  type: object
-  properties:
-    userName:
-      type: string
-
-
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          id:
+            type: string
+          email:
+            type: string
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+  UserProfile:
+    type: object
+    properties:
+      userName:
+        type: string
