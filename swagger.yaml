@@ -99,6 +99,46 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Get User Account Information
+      description: API for retrieving user account information including balance and transactions
+      responses:
+        '200':
+          description: User account information retrieved successfully
+          schema:
+            $ref: '#/definitions/UserAccountInfo'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    patch:  # Ajout du nouvel endpoint PATCH pour mettre à jour une transaction spécifique
+      security:
+        - Bearer: []
+      tags:
+        - User Module
+      summary: Update Transaction Category
+      description: API for updating the category of a transaction
+      parameters:
+        - in: body
+          name: body
+          description: Update transaction category
+          required: true
+          schema:
+            $ref: '#/definitions/TransactionCategoryUpdate'
+      responses:
+        '200':
+          description: Transaction category updated successfully
+          schema:
+            $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -154,3 +194,37 @@ definitions:
     properties:
       userName:
         type: string
+  UserAccountInfo:  # Définition du schéma pour les informations de compte utilisateur
+    type: object
+    properties:
+      balance:
+        type: number
+        description: User's account balance
+      transactions:
+        type: array
+        items:
+          $ref: '#/definitions/Transaction'
+  Transaction:  # Définition du schéma pour les transactions
+    type: object
+    properties:
+      id:
+        type: string
+        description: Transaction ID
+      amount:
+        type: number
+        description: Transaction amount
+      description:
+        type: string
+        description: Transaction description
+  TransactionCategoryUpdate:  # Définition du schéma pour la mise à jour de la catégorie de transaction
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Transaction ID to update
+      category:
+        type: string
+        description: New transaction category
+      description:
+        type: string
+        description: Updated description of the transaction

@@ -22,8 +22,7 @@ function SignIn () {
 
   const handleSignIn = async (e) => { 
     e.preventDefault();
-  
-      
+   
       const apiUrl = 'http://localhost:3001/api/v1/user/login';
   
       try {
@@ -41,21 +40,15 @@ function SignIn () {
 
           dispatch(clearError())
           dispatch(setToken(token))
-          console.log(token)
           navigate('/Dashboard')
           
-
         } else {
           dispatch(setError('Email ou mot de passe incorrect.'));
         }
-
       } catch (error) {
         console.error('Erreur lors de la connexion :', error);
       }
     };
-
-    
-
 
      return (
     <main className="main bg-dark-signIn">
