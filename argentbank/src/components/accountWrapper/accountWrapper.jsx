@@ -1,3 +1,4 @@
+import './accountWrapper.scss'
 
 function AccountWrapper ({accountTitle, accountAmount, accountAmountDescription}) {
 

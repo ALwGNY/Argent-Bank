@@ -38,7 +38,9 @@ function SignIn () {
           const data = await response.json()
           const token = data.body.token
 
-          dispatch(clearError())
+          if(!error) {
+            dispatch(clearError())
+          }
           dispatch(setToken(token))
           navigate('/Dashboard')
           

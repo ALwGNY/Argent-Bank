@@ -36,8 +36,6 @@ function Header() {
             const userData = await response.json();
             dispatch(setUserInfo({
               userName: userData.body.userName,
-              firstName: userData.body.firstName,
-              lastName: userData.body.lastName
             }));
           } else {
             console.error('API request failed with status code:', response.status);
