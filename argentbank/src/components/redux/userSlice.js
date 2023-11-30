@@ -66,7 +66,10 @@ export const {
 export default userSlice.reducer;
 
 
-export const selectToken = (state) => state.user.token
+export const selectToken = (state) => state.user.token; 
 export const selectUserName = (state) => state.user.userName;
 export const selectFirstName = (state) => state.user.firstName;
 export const selectLastName = (state) => state.user.lastName;
+export const selectEmail = (state) => state.user.email;
+export const selectPassword = (state) => state.user.password;
+export const selectError = (state) => state.user.error;

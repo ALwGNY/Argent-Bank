@@ -12,10 +12,10 @@ function Header() {
   const token = useSelector(selectToken);
   const userName = useSelector(selectUserName);
   const isAuthenticated = useSelector(selectToken) !== null;
+
   const dispatch = useDispatch();
   const apiUrl = 'http://localhost:3001/api/v1/user/profile';
   
-
   const handleLogout = () => {
     dispatch(logout());
   }
@@ -36,7 +36,10 @@ function Header() {
             const userData = await response.json();
             dispatch(setUserInfo({
               userName: userData.body.userName,
+              firstName: userData.body.firstName,
+              lastName: userData.body.lastName
             }));
+
           } else {
             console.error('API request failed with status code:', response.status);
           }
@@ -44,7 +47,6 @@ function Header() {
           console.error('Erreur lors de la connexion :', error);
         }
       }
-  
       fetchUserData();
     }
   }, [isAuthenticated, token, dispatch]);

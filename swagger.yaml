@@ -99,13 +99,22 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-    get:
+
+  /user/AccountInfo:
+    post:
       security:
         - Bearer: []
       tags:
         - User Module
       summary: Get User Account Information
       description: API for retrieving user account information including balance and transactions
+      parameters:
+        - in: body
+          name: body
+          description: Account info
+          required: true
+          schema:
+            $ref: '#/definitions/UserAccountInfo'
       responses:
         '200':
           description: User account information retrieved successfully
@@ -115,25 +124,27 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
-    patch:  # Ajout du nouvel endpoint PATCH pour mettre à jour une transaction spécifique
+  
+  /user/AccountInfo/TransactionInfoUpdate:
+    patch:  
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: Update Transaction Category
-      description: API for updating the category of a transaction
+      summary: Update Transaction 
+      description: API for updating the info of a transaction
       parameters:
         - in: body
           name: body
-          description: Update transaction category
+          description: Update transaction info
           required: true
           schema:
-            $ref: '#/definitions/TransactionCategoryUpdate'
+            $ref: '#/definitions/TransactionInfoUpdate'
       responses:
         '200':
-          description: Transaction category updated successfully
+          description: Transaction info updated successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
+            $ref: '#/definitions/TransactionInfoUpdate'
         '400':
           description: Invalid Fields
         '500':
@@ -194,29 +205,47 @@ definitions:
     properties:
       userName:
         type: string
-  UserAccountInfo:  # Définition du schéma pour les informations de compte utilisateur
+
+  UserAccountInfo:
     type: object
     properties:
+      balanceId:
+        type: string
+        description: The identifier of the user's balance
       balance:
         type: number
-        description: User's account balance
+        description: The current balance of the user
       transactions:
         type: array
         items:
           $ref: '#/definitions/Transaction'
-  Transaction:  # Définition du schéma pour les transactions
+    required:
+      - balanceId
+      - transactions
+  Transaction:
     type: object
     properties:
-      id:
+      transactionId:
         type: string
-        description: Transaction ID
+        description: Transaction identifier
       amount:
         type: number
         description: Transaction amount
       description:
         type: string
         description: Transaction description
-  TransactionCategoryUpdate:  # Définition du schéma pour la mise à jour de la catégorie de transaction
+      date:
+        type: string
+        format: date-time
+        description: Transaction date
+      transactionType:
+        type: string
+        description: Transaction type
+      note:
+        type: string
+        description: Note about the transaction
+        
+  TransactionInfoUpdate:  
     type: object
     properties:
       transactionId:
@@ -225,6 +254,7 @@ definitions:
       category:
         type: string
         description: New transaction category
-      description:
-        type: string
-        description: Updated description of the transaction
+      note:
+        type: string 
+        description: New transaction note
+      

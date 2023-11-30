@@ -1,13 +1,13 @@
 import './Sign-in.scss'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setEmail, setPassword, setError, clearError, setToken} from '../../components/redux/userSlice';
+import { setEmail, setPassword, setError, clearError, setToken, selectEmail, selectPassword, selectError} from '../../components/redux/userSlice';
 
 function SignIn () {
 
-  const email = useSelector((state) => state.user.email);
-  const password = useSelector((state) => state.user.password);
-  const error = useSelector((state) => state.user.error);
+  const email = useSelector(selectEmail);
+  const password = useSelector(selectPassword);
+  const error = useSelector(selectError);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -2,19 +2,14 @@ import './EditNameModal.scss';
 import { useSelector, useDispatch } from 'react-redux'; 
 import { selectToken,  closeModal, setUserInfo, selectFirstName, selectUserName, selectLastName } from '../redux/userSlice';
 
-
-
 function EditNameModal() {
     const token = useSelector(selectToken);
     const userName = useSelector(selectUserName)
     const firstName = useSelector(selectFirstName)
-    const lastName = useSelector(selectLastName)
-    
-    
-    
-    
+    const lastName = useSelector(selectLastName)   
     const apiUrl = 'http://localhost:3001/api/v1/user/profile';
     const dispatch = useDispatch();
+
     const handleCloseModal = () => {
         dispatch(closeModal());
     }
@@ -22,9 +17,6 @@ function EditNameModal() {
     const handleUsernameChange = (e) => {
         dispatch(setUserInfo({ userName: e.target.value, firstName, lastName }));
     }
-
-   
-
 
     const handleSave = async () => {
         try {
@@ -38,18 +30,14 @@ function EditNameModal() {
                     userName: userName
                 })
             })
-
-        if (response.ok) {
-            dispatch(setUserInfo({ userName: userName, firstName, lastName }));
-            handleCloseModal()
-        
-        } else {
-                console.error('API request failed with status code:', response.status);
-                
+            if (response.ok) {
+                dispatch(setUserInfo({ userName: userName, firstName, lastName }));
+                handleCloseModal()       
+            } else {
+                console.error('API request failed with status code:', response.status);            
             }
         } catch (error) {
-            console.error('Erreur lors de la connexion :', error);
-        
+            console.error('Erreur lors de la connexion :', error);      
         }
     }
     return (
