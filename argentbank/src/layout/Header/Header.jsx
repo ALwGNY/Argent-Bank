@@ -11,7 +11,7 @@ function Header() {
 
   const token = useSelector(selectToken);
   const userName = useSelector(selectUserName);
-  const isAuthenticated = useSelector(selectToken) !== null;
+  
 
   const dispatch = useDispatch();
   const apiUrl = 'http://localhost:3001/api/v1/user/profile';
@@ -21,7 +21,7 @@ function Header() {
   }
 
   useEffect(() => {
-    if (isAuthenticated && token) {
+    if (typeof token === 'string') {
       async function fetchUserData() {
         try {
           const response = await fetch(apiUrl, {
@@ -49,7 +49,7 @@ function Header() {
       }
       fetchUserData();
     }
-  }, [isAuthenticated, token, dispatch]);
+  }, [token, dispatch]);
 
     return(
         <nav className="main-nav">
@@ -62,7 +62,7 @@ function Header() {
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
       <div>
-        {isAuthenticated ? (
+        {token ? (
           <div className='connected'>
             <p> {userName}</p>
             <Link to="/" onClick={handleLogout} className="main-nav-item"> 

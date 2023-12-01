@@ -9,7 +9,7 @@ const initialState = {
   userName: '',
   firstName: '',
   lastName:'',
-  isAuthenticated: false,
+  
 };
 
 const userSlice = createSlice({
@@ -30,11 +30,9 @@ const userSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload;
-      state.isAuthenticated = true;
     },
     logout: (state) => {
       state.token = null;
-      state.isAuthenticated = false;
       state.email = '';
       state.password = '';
     },

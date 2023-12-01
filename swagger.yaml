@@ -111,42 +111,60 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Account info
+          description: User account information
           required: true
           schema:
             $ref: '#/definitions/UserAccountInfo'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/UserAccountInfo'
       responses:
         '200':
           description: User account information retrieved successfully
-          schema:
-            $ref: '#/definitions/UserAccountInfo'
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/UserAccountInfo'
         '400':
-          description: Invalid Fields
+          description: Invalid Request
+        '401':
+          description: Unauthorized - Missing or invalid authentication
         '500':
-          description: Internal Server Error
+          description: Internal Server Error Warning
   
   /user/AccountInfo/TransactionInfoUpdate:
-    patch:  
+    put:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: Update Transaction 
-      description: API for updating the info of a transaction
+      summary: Update a transaction
+      description: API to update transaction information
       parameters:
         - in: body
           name: body
-          description: Update transaction info
+          description: Update Info transaction
           required: true
           schema:
-            $ref: '#/definitions/TransactionInfoUpdate'
+            $ref: '#/definitions/TransactionInfoUpdate'  
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/TransactionInfoUpdate'
       responses:
         '200':
-          description: Transaction info updated successfully
-          schema:
-            $ref: '#/definitions/TransactionInfoUpdate'
+          description: Transaction information updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/TransactionInfoUpdate'
         '400':
-          description: Invalid Fields
+          description: Invalid fields
         '500':
           description: Internal Server Error
   
@@ -221,7 +239,7 @@ definitions:
           $ref: '#/definitions/Transaction'
     required:
       - balanceId
-      - transactions
+
   Transaction:
     type: object
     properties:
@@ -245,7 +263,7 @@ definitions:
         type: string
         description: Note about the transaction
         
-  TransactionInfoUpdate:  
+  TransactionInfoUpdate:
     type: object
     properties:
       transactionId:
