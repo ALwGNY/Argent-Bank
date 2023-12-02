@@ -8,8 +8,7 @@ const initialState = {
   isModalOpen: false,
   userName: '',
   firstName: '',
-  lastName:'',
-  
+  lastName:''
 };
 
 const userSlice = createSlice({
@@ -35,6 +34,11 @@ const userSlice = createSlice({
       state.token = null;
       state.email = '';
       state.password = '';
+      state.error = '';
+      state.isModalOpen = false;
+      state.userName = '';
+      state.firstName = '';
+      state.lastName = '';
     },
     openModal: (state) => {
       state.isModalOpen = true;

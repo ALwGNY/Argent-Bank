@@ -40,10 +40,10 @@ function SignIn () {
 
           if(!error) {
             dispatch(clearError())
+            console.clear()
           }
           dispatch(setToken(token))
-          navigate('/Dashboard')
-          
+          navigate('/Dashboard')         
         } else {
           dispatch(setError('Email ou mot de passe incorrect.'));
         }
@@ -63,7 +63,6 @@ function SignIn () {
             <input
               type="email"
               id="email"
-              value={email}
               onChange={handleEmailChange}
               required
             />
@@ -72,8 +71,7 @@ function SignIn () {
             <label htmlFor="password">Password</label>
             <input
               type="password"
-              id="password"
-              value={password}
+              id="password"             
               onChange={handlePasswordChange}
               required
             />

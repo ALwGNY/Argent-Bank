@@ -4,18 +4,16 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, selectUserName, selectToken, setUserInfo} from '../../components/redux/userSlice';
+import { logout, selectUserName, selectToken, setUserInfo } from '../../components/redux/userSlice';
 import React, { useEffect } from 'react';
 
 function Header() {
 
   const token = useSelector(selectToken);
   const userName = useSelector(selectUserName);
-  
-
   const dispatch = useDispatch();
   const apiUrl = 'http://localhost:3001/api/v1/user/profile';
-  
+ 
   const handleLogout = () => {
     dispatch(logout());
   }
