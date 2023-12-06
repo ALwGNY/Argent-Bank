@@ -8,7 +8,6 @@ function SignIn () {
   const email = useSelector(selectEmail);
   const password = useSelector(selectPassword);
   const error = useSelector(selectError);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
   
@@ -22,7 +21,7 @@ function SignIn () {
 
   const handleSignIn = async (e) => { 
     e.preventDefault();
-   
+    
       const apiUrl = 'http://localhost:3001/api/v1/user/login';
   
       try {
